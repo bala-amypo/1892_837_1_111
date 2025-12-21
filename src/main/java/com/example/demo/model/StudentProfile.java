@@ -14,14 +14,20 @@ public class StudentProfile {
     private String studentId;
 
     private String fullName;
-
-    @Column(unique = true, nullable = false)
     private String email;
-
     private String department;
     private Integer yearLevel;
     private Boolean active;
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Getters and Setters
+    // Add these missing methods manually
+    public String getStudentId() { return studentId; }
+    public void setStudentId(String studentId) { this.studentId = studentId; }
+
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
+
+    // Ensure other getters/setters for fullName, email, etc., are also present
+    public Long getId() { return id; }
+    public String getEmail() { return email; }
 }
