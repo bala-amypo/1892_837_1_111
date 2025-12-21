@@ -1,24 +1,12 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "student_profiles")
-public class StudentProfile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true, nullable = false)
+public class StudentProfileDto {
     private String studentId;
-
     private String fullName;
     private String email;
     private String department;
     private Integer yearLevel;
     private Boolean active;
-    private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Getters and Setters
+    // Standard Getters and Setters
 }

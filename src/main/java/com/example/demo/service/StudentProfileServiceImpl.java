@@ -6,7 +6,7 @@ import com.example.demo.repository.StudentProfileRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StudentProfileServiceImpl implements StudentProfileService {
+public class StudentProfileServiceImpl {
     private final StudentProfileRepository repository;
 
     // Strict Constructor Injection
@@ -14,9 +14,10 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         this.repository = repository;
     }
 
-    @Override
     public StudentProfile getStudentById(Long id) {
         return repository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("not found"));
     }
+    
+    // Implement other methods: createStudent, findByStudentId, etc.
 }

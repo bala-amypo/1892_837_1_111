@@ -1,24 +1,12 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "habit_profiles")
-public class HabitProfile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+public class HabitProfileDto {
     private Long studentId;
-
-    @Enumerated(EnumType.STRING)
-    private SleepSchedule sleepSchedule;
-
+    private String sleepSchedule;
     private Integer studyHoursPerDay;
+    private String cleanlinessLevel;
+    private String noiseTolerance;
+    private String socialPreference;
 
-    @Enumerated(EnumType.STRING)
-    private Level cleanlinessLevel;
-
-    // Include other fields: noiseTolerance, socialPreference, updatedAt
+    // Standard Getters and Setters
 }
