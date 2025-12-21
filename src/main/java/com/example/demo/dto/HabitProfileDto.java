@@ -1,3 +1,8 @@
+package com.example.demo.model;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "habit_profiles")
 public class HabitProfile {
@@ -5,19 +10,15 @@ public class HabitProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private Long studentId; // Link to StudentProfile ID
+    private Long studentId;
 
     @Enumerated(EnumType.STRING)
-    private SleepSchedule sleepSchedule; // EARLY, REGULAR, LATE
+    private SleepSchedule sleepSchedule;
 
     private Integer studyHoursPerDay;
 
     @Enumerated(EnumType.STRING)
-    private Level cleanlinessLevel; // LOW, MEDIUM, HIGH
+    private Level cleanlinessLevel;
 
-    // Add other fields: noiseTolerance, socialPreference, etc.
-    
-    private LocalDateTime updatedAt = LocalDateTime.now();
-
-    // Getters and Setters...
+    // Include other fields: noiseTolerance, socialPreference, updatedAt
 }
