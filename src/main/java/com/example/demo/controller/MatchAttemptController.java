@@ -1,3 +1,4 @@
+// src/main/java/com/example/demo/controller/MatchController.java
 package com.example.demo.controller;
 
 import com.example.demo.model.MatchResult;
@@ -24,7 +25,7 @@ public class MatchController {
     }
 
     @GetMapping("/student/{studentId}")
-    public ResponseEntity<List<MatchResult>> getForStudent(@PathVariable Long studentId) {
+    public ResponseEntity<List<MatchResult>> getMatchesForStudent(@PathVariable Long studentId) {
         return ResponseEntity.ok(matchService.getMatchesFor(studentId));
     }
 
