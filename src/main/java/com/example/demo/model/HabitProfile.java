@@ -1,33 +1,30 @@
-// src/main/java/com/example/demo/model/HabitProfile.java
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
-@Table(name = "habit_profiles")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class HabitProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "student_id", unique = true)
-    private StudentProfile student;
+    private Long studentId;
+    private Integer studyHoursPerDay;
 
-    private boolean smoking;
-    private boolean drinking;
-    private String sleepTime;
-    private String wakeTime;
-    private int cleanlinessLevel; // 1-5
-    private int noisePreference;  // 1-5
-    private String studyStyle;
-    private String socialPreference;
-    private int visitorsFrequency; // 1-5
+    @Enumerated(EnumType.STRING)
+    private SleepSchedule sleepSchedule;
+
+    @Enumerated(EnumType.STRING)
+    private CleanlinessLevel cleanlinessLevel;
+
+    @Enumerated(EnumType.STRING)
+    private NoiseTolerance noiseTolerance;
+
+    @Enumerated(EnumType.STRING)
+    private SocialPreference socialPreference;
+
+    private LocalDateTime updatedAt;
+
+    public enum SleepSchedule { EARLY, REGULAR, LATE }
+    public enum CleanlinessLevel { LOW, MEDIUM, HIGH }
+    public enum NoiseTolerance { LOW, MEDIUM, HIGH }
+    public enum SocialPreference { INTROVERT, BALANCED, EXTROVERT }
 }

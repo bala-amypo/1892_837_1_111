@@ -1,33 +1,19 @@
-// src/main/java/com/example/demo/model/MatchResult.java
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name = "match_results")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class MatchResult {
+public class MatchAttemptRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private StudentProfile studentA;
+    private Long initiatorStudentId;
+    private Long candidateStudentId;
+    private Long resultScoreId;
 
-    @ManyToOne
-    private StudentProfile studentB;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-    private double score;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    private String reasonSummary;
+    public enum Status {
+        MATCHED, NOT_COMPATIBLE, PENDING_REVIEW
+    }
 }

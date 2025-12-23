@@ -1,6 +1,19 @@
-// src/main/java/com/example/demo/model/RoomType.java
-package com.example.demo.model;
+@Entity
+@Data
+public class RoomAssignmentRecord {
 
-public enum RoomType {
-    SINGLE, DOUBLE, TRIPLE
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String roomNumber;
+    private Long studentAId;
+    private Long studentBId;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public enum Status {
+        ACTIVE, COMPLETED, CANCELLED
+    }
 }
