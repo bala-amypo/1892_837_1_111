@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-
     private final UserAccountRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
@@ -24,30 +23,24 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse register(AuthRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("User with this email already exists");
+            throw new IllegalArgumentException("Email already exists"); //
         }
-
         UserAccount user = new UserAccount();
         user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole() != null ? request.getRole() : "USER");
-        
-        user = userRepository.save(user);
-
+        user.setPassword(passwordEncoder.encode(request.getPassword())); //
+        user.setRole("USER");
+        userRepository.save(user);
         return login(request);
     }
 
     @Override
     public AuthResponse login(AuthRequest request) {
         UserAccount user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
-
+                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Invalid email or password");
+            throw new IllegalArgumentException("Invalid credentials");
         }
-
-        String token = jwtUtil.generateToken(user.getEmail(), user.getId(), user.getRole());
-        
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), user.getEmail(), String.valueOf(user.getId()));
         AuthResponse response = new AuthResponse();
         response.setToken(token);
         response.setUserId(user.getId());

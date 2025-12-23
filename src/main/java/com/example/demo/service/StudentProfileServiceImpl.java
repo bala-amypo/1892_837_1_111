@@ -1,66 +1,48 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.StudentProfileDto;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.StudentProfile;
-import com.example.demo.model.UserAccount;
 import com.example.demo.repository.StudentProfileRepository;
-import com.example.demo.repository.UserAccountRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
+    private final StudentProfileRepository repository;
 
-    private final StudentProfileRepository studentRepo;
-    private final UserAccountRepository userRepo;
-
-    public StudentProfileServiceImpl(StudentProfileRepository studentRepo, UserAccountRepository userRepo) {
-        this.studentRepo = studentRepo;
-        this.userRepo = userRepo;
+    public StudentProfileServiceImpl(StudentProfileRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public StudentProfile createProfile(StudentProfileDto dto, Long userId) {
-        // Rule: Age must be positive
-        if (dto.getAge() == null || dto.getAge() <= 0) {
-            throw new IllegalArgumentException("Age must be > 0");
+    public StudentProfile createStudent(StudentProfile student) {
+        if (repository.findByStudentId(student.getStudentId()).isPresent()) {
+            throw new IllegalArgumentException("studentId exists"); //
         }
-
-        // Rule: Room type must be SINGLE, DOUBLE, or TRIPLE
-        String roomPref = dto.getRoomTypePreference();
-        if (!List.of("SINGLE", "DOUBLE", "TRIPLE").contains(roomPref)) {
-            throw new IllegalArgumentException("Invalid roomTypePreference");
-        }
-
-        UserAccount user = userRepo.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        // Rule: One profile per user
-        if (studentRepo.findByUserAccountId(userId).isPresent()) {
-            throw new IllegalArgumentException("User already has a profile");
-        }
-
-        StudentProfile profile = new StudentProfile();
-        profile.setUserAccount(user);
-        profile.setName(dto.getName());
-        profile.setAge(dto.getAge());
-        profile.setCourse(dto.getCourse());
-        profile.setYearOfStudy(dto.getYearOfStudy());
-        profile.setGender(dto.getGender());
-        profile.setRoomTypePreference(roomPref);
-
-        return studentRepo.save(profile);
+        return repository.save(student);
     }
 
     @Override
-    public List<StudentProfile> getAllProfiles() {
-        return studentRepo.findAll();
+    public StudentProfile getStudentById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found")); //
     }
 
     @Override
-    public StudentProfile getProfile(Long id) {
-        return studentRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+    public StudentProfile updateStudentStatus(Long id, boolean active) {
+        StudentProfile s = getStudentById(id);
+        s.setActive(active);
+        return repository.save(s); //
+    }
+
+    @Override
+    public List<StudentProfile> getAllStudents() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<StudentProfile> findByStudentId(String studentId) {
+        return repository.findByStudentId(studentId);
     }
 }
