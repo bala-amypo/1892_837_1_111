@@ -1,12 +1,21 @@
 package com.example.demo.dto;
 
 public class HabitProfileDto {
-    private Long studentId;
-    private String sleepSchedule;
-    private Integer studyHoursPerDay;
-    private String cleanlinessLevel;
-    private String noiseTolerance;
-    private String socialPreference;
+    private Integer cleanlinessLevel;
+    private Integer noisePreference;
+    private String sleepTime;
+    private String wakeTime;
+    private String studyStyle;
 
-    // Standard Getters and Setters
+    // Getters and Setters
+    public Integer getCleanlinessLevel() { return cleanlinessLevel; }
+    public void setCleanlinessLevel(Integer cleanlinessLevel) { this.cleanlinessLevel = cleanlinessLevel; }
+    public Integer getNoisePreference() { return noisePreference; }
+    public void setNoisePreference(Integer noisePreference) { this.noisePreference = noisePreference; }
+    public String getSleepTime() { return sleepTime; }
+    public void setSleepTime(String sleepTime) { this.sleepTime = sleepTime; }
+    public String getWakeTime() { return wakeTime; }
+    public void setWakeTime(String wakeTime) { this.wakeTime = wakeTime; }
+    public String getStudyStyle() { return studyStyle; }
+    public void setStudyStyle(String studyStyle) { this.studyStyle = studyStyle; }
 }
