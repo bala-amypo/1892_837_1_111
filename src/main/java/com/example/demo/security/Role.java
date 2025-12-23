@@ -1,7 +1,7 @@
 package com.example.demo.security;
 
 /**
- * Defines the security roles available in the system.
+ * Defines the security roles for user accounts.
  */
 public enum Role {
     USER,
