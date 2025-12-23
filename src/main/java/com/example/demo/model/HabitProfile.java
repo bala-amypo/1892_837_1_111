@@ -1,24 +1,25 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "habit_profiles")
 public class HabitProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    private StudentProfile student;
+    
+    private String sleepTime;
+    private String wakeTime;
+    private Integer cleanlinessLevel; // Range 1-5
+    private Integer noisePreference; // Range 1-5
+    private String studyStyle;
 
-    @Column(unique = true, nullable = false)
-    private Long studentId; // FK reference to StudentProfile
-
-    private String sleepSchedule; // EARLY / REGULAR / LATE
-    private Integer studyHoursPerDay;
-    private String cleanlinessLevel; // LOW / MEDIUM / HIGH
-    private String noiseTolerance;
-    private String socialPreference;
-    private LocalDateTime updatedAt = LocalDateTime.now();
-
-    // Getters and Setters
+    // Getters/Setters
+    public Integer getCleanlinessLevel() { return cleanlinessLevel; }
+    public Integer getNoisePreference() { return noisePreference; }
+    // ... other getters and setters
 }

@@ -1,33 +1,28 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
-@Table(name = "student_profiles")
 public class StudentProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true, nullable = false)
-    private String studentId;
-
-    private String fullName;
-    private String email;
-    private String department;
-    private Integer yearLevel;
-    private Boolean active;
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    // Add these missing methods manually
-    public String getStudentId() { return studentId; }
-    public void setStudentId(String studentId) { this.studentId = studentId; }
-
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
-
-    // Ensure other getters/setters for fullName, email, etc., are also present
+    
+    @OneToOne
+    @JoinColumn(name = "user_account_id")
+    private UserAccount userAccount;
+    
+    private String name;
+    private Integer age;
+    private String course;
+    private Integer yearOfStudy;
+    private String gender;
+    private String roomTypePreference; // SINGLE, DOUBLE, TRIPLE
+    
+    // Standard Getters/Setters
     public Long getId() { return id; }
-    public String getEmail() { return email; }
+    public void setAge(Integer age) { this.age = age; }
+    public Integer getAge() { return age; }
+    // ... other getters and setters
 }
