@@ -1,28 +1,21 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.util.Date;
 
 @Entity
 public class StudentProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+    private String studentId;
+    private String email;
+    private Boolean active;
+
     @OneToOne
-    @JoinColumn(name = "user_account_id")
-    private UserAccount userAccount;
-    
-    private String name;
-    private Integer age;
-    private String course;
-    private Integer yearOfStudy;
-    private String gender;
-    private String roomTypePreference; // SINGLE, DOUBLE, TRIPLE
-    
-    // Standard Getters/Setters
-    public Long getId() { return id; }
-    public void setAge(Integer age) { this.age = age; }
-    public Integer getAge() { return age; }
-    // ... other getters and setters
+    private UserAccount userAccount; // Fixes "cannot find symbol UserAccount"
+
+    // Required Getters and Setters to fix "cannot find symbol" errors
+    public String getStudentId() { return studentId; }
+    public String getEmail() { return email; }
+    public void setActive(Boolean active) { this.active = active; }
 }
