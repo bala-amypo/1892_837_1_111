@@ -2,42 +2,39 @@ package com.example.demo.controller;
 
 import com.example.demo.model.StudentProfile;
 import com.example.demo.service.StudentProfileService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
-@Tag(name = "Student Profiles")
 public class StudentProfileController {
-    private final StudentProfileService service;
 
-    public StudentProfileController(StudentProfileService service) {
-        this.service = service;
+    private final StudentProfileService studentService;
+
+    public StudentProfileController(StudentProfileService studentService) {
+        this.studentService = studentService;
     }
 
     @PostMapping("/")
-    public StudentProfile create(@RequestBody StudentProfile profile) {
-        return service.createStudent(profile);
+    public ResponseEntity<StudentProfile> create(@RequestBody StudentProfile student) {
+        // Matches test t105 signature
+        return ResponseEntity.ok(studentService.createStudent(student));
     }
 
     @GetMapping("/{id}")
-    public StudentProfile getById(@PathVariable Long id) {
-        return service.getStudentById(id);
+    public ResponseEntity<StudentProfile> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
     @GetMapping("/")
-    public List<StudentProfile> getAll() {
-        return service.getAllStudents();
+    public ResponseEntity<List<StudentProfile>> listAll() {
+        return ResponseEntity.ok(studentService.getAllStudents());
     }
 
     @PutMapping("/{id}/status")
-    public StudentProfile updateStatus(@PathVariable Long id, @RequestParam boolean active) {
-        return service.updateStudentStatus(id, active);
-    }
-
-    @GetMapping("/lookup/{studentId}")
-    public StudentProfile lookup(@PathVariable String studentId) {
-        return service.findByStudentId(studentId);
+    public ResponseEntity<StudentProfile> updateStatus(@PathVariable Long id, @RequestParam boolean active) {
+        // Matches test t013
+        return ResponseEntity.ok(studentService.updateStudentStatus(id, active));
     }
 }

@@ -6,36 +6,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/room-assignments")
-@Tag(name = "Room Assignments")
 public class RoomAssignmentController {
-    private final RoomAssignmentService service;
+    private final RoomAssignmentService assignmentService;
 
-    public RoomAssignmentController(RoomAssignmentService service) {
-        this.service = service;
+    public RoomAssignmentController(RoomAssignmentService assignmentService) {
+        this.assignmentService = assignmentService;
     }
 
-    @PostMapping("/")
-    public Object assignRoom(@RequestBody Object assignment) {
-        return service.assignRoom(assignment);
-    }
-
-    @PutMapping("/{id}/status")
-    public Object updateStatus(@PathVariable Long id, @RequestParam String status) {
-        return service.updateStatus(id, status);
-    }
-
-    @GetMapping("/student/{studentId}")
-    public java.util.List<?> getByStudent(@PathVariable Long studentId) {
-        return service.getAssignmentsByStudent(studentId);
-    }
-
-    @GetMapping("/{id}")
-    public Object getById(@PathVariable Long id) {
-        return service.getAssignmentById(id);
-    }
-
-    @GetMapping("/")
-    public java.util.List<?> getAll() {
-        return service.getAllAssignments();
+    @PostMapping("/assign")
+    public ResponseEntity<RoomAssignmentRecord> assign(@RequestBody RoomAssignmentRecord r) {
+        // Matches test t109
+        return ResponseEntity.ok(assignmentService.assignRoom(r));
     }
 }

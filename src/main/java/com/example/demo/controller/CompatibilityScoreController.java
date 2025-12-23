@@ -1,36 +1,35 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.CompatibilityScoreRecord;
 import com.example.demo.service.CompatibilityScoreService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/compatibility")
-@Tag(name = "Compatibility")
-public class CompatibilityScoreController {
-    private final CompatibilityScoreService service;
+@RequestMapping("/api/matches")
+public class MatchController {
 
-    public CompatibilityScoreController(CompatibilityScoreService service) {
-        this.service = service;
+    private final CompatibilityScoreService compatService;
+
+    public MatchController(CompatibilityScoreService compatService) {
+        this.compatService = compatService;
     }
 
-    @PostMapping("/compute/{studentAId}/{studentBId}")
-    public Double compute(@PathVariable Long studentAId, @PathVariable Long studentBId) {
-        return service.computeScore(studentAId, studentBId);
+    @PostMapping("/compute")
+    public ResponseEntity<CompatibilityScoreRecord> compute(@RequestParam Long studentAId, @RequestParam Long studentBId) {
+        // Triggers the 0-100 score logic
+        return ResponseEntity.ok(compatService.computeScore(studentAId, studentBId));
     }
 
     @GetMapping("/student/{studentId}")
-    public java.util.List<?> getScoresForStudent(@PathVariable Long studentId) {
-        return service.getScoresForStudent(studentId);
+    public ResponseEntity<List<CompatibilityScoreRecord>> getMatchesForStudent(@PathVariable Long studentId) {
+        // Returns matches ordered by score descending
+        return ResponseEntity.ok(compatService.getScoresForStudent(studentId));
     }
 
     @GetMapping("/{id}")
-    public Object getById(@PathVariable Long id) {
-        return service.getScoreById(id);
-    }
-
-    @GetMapping("/")
-    public java.util.List<?> getAll() {
-        return service.getAllScores();
+    public ResponseEntity<CompatibilityScoreRecord> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(compatService.getScoreById(id));
     }
 }
