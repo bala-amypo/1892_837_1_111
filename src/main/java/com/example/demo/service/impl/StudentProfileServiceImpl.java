@@ -1,84 +1,55 @@
-// src/main/java/com/example/demo/service/impl/StudentProfileServiceImpl.java
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.StudentProfileDto;
-import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.StudentProfile;
-import com.example.demo.model.UserAccount;
 import com.example.demo.repository.StudentProfileRepository;
-import com.example.demo.repository.UserAccountRepository;
 import com.example.demo.service.StudentProfileService;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
 public class StudentProfileServiceImpl implements StudentProfileService {
 
-    private final StudentProfileRepository profileRepo;
-    private final UserAccountRepository userRepo;
+    private final StudentProfileRepository studentRepo;
 
-    public StudentProfileServiceImpl(StudentProfileRepository profileRepo, UserAccountRepository userRepo) {
-        this.profileRepo = profileRepo;
-        this.userRepo = userRepo;
+    public StudentProfileServiceImpl(StudentProfileRepository studentRepo) {
+        this.studentRepo = studentRepo;
     }
 
     @Override
-    public StudentProfile createProfile(StudentProfileDto dto, Long userId) {
-        UserAccount user = userRepo.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    public StudentProfile createStudent(StudentProfile profile) {
 
-        if (profileRepo.findByUserAccountId(userId).isPresent()) {
-            throw new BadRequestException("User already has a profile");
+        if (studentRepo.findByStudentId(profile.getStudentId()).isPresent()) {
+            throw new IllegalArgumentException("studentId exists");
         }
 
-        validateDto(dto);
-
-        StudentProfile profile = new StudentProfile();
-        profile.setUserAccount(user);
-        mapDtoToEntity(dto, profile);
-        return profileRepo.save(profile);
-    }
-
-    @Override
-    public StudentProfile updateProfile(Long id, StudentProfileDto dto) {
-        StudentProfile profile = getProfile(id);
-        validateDto(dto);
-        mapDtoToEntity(dto, profile);
-        return profileRepo.save(profile);
-    }
-
-    @Override
-    public StudentProfile getProfile(Long id) {
-        return profileRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
-    }
-
-    @Override
-    public List<StudentProfile> getAllProfiles() {
-        return profileRepo.findAll();
-    }
-
-    private void validateDto(StudentProfileDto dto) {
-        if (dto.getAge() <= 0) {
-            throw new BadRequestException("Age must be > 0");
+        if (studentRepo.findByEmail(profile.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("email exists");
         }
-        // Add more validations if needed
+
+        return studentRepo.save(profile);
     }
 
-    private void mapDtoToEntity(StudentProfileDto dto, StudentProfile profile) {
-        profile.setName(dto.getName());
-        profile.setAge(dto.getAge());
-        profile.setCourse(dto.getCourse());
-        profile.setYearOfStudy(dto.getYearOfStudy());
-        profile.setGender(dto.getGender());
-        profile.setRoomTypePreference(dto.getRoomTypePreference());
-        profile.setSleepTime(dto.getSleepTime());
-        profile.setWakeTime(dto.getWakeTime());
-        profile.setSmoking(dto.isSmoking());
-        profile.setDrinking(dto.isDrinking());
-        profile.setNoiseTolerance(dto.getNoiseTolerance());
-        profile.setStudyTime(dto.getStudyTime());
+    @Override
+    public StudentProfile getStudentById(Long id) {
+        return studentRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("not found"));
+    }
+
+    @Override
+    public List<StudentProfile> getAllStudents() {
+        return studentRepo.findAll();
+    }
+
+    @Override
+    public Optional<StudentProfile> findByStudentId(String studentId) {
+        return studentRepo.findByStudentId(studentId);
+    }
+
+    @Override
+    public StudentProfile updateStudentStatus(Long id, boolean active) {
+        StudentProfile student = getStudentById(id);
+        student.setActive(active);
+        return studentRepo.save(student);
     }
 }
