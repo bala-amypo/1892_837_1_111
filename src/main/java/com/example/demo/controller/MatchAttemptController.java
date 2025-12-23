@@ -1,22 +1,35 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.MatchAttemptService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.example.demo.model.MatchResult;
+import com.example.demo.service.MatchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/match-attempts")
-public class MatchAttemptController {
-    private final MatchAttemptService attemptService;
+import java.util.List;
 
-    public MatchAttemptController(MatchAttemptService attemptService) {
-        this.attemptService = attemptService;
+@RestController
+@RequestMapping("/api/matches")
+public class MatchController {
+
+    private final MatchService matchService;
+
+    public MatchController(MatchService matchService) {
+        this.matchService = matchService;
     }
 
-    @PostMapping("/log")
-    public ResponseEntity<MatchAttemptRecord> log(@RequestBody MatchAttemptRecord attempt) {
-        // Matches test t108
-        return ResponseEntity.ok(attemptService.logMatchAttempt(attempt));
+    @PostMapping("/compute")
+    public ResponseEntity<MatchResult> compute(@RequestParam Long studentAId,
+                                               @RequestParam Long studentBId) {
+        return ResponseEntity.ok(matchService.computeMatch(studentAId, studentBId));
+    }
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<MatchResult>> getForStudent(@PathVariable Long studentId) {
+        return ResponseEntity.ok(matchService.getMatchesFor(studentId));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MatchResult> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(matchService.getById(id));
     }
 }
