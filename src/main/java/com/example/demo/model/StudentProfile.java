@@ -1,17 +1,30 @@
+package com.example.demo.model;
+
+
+import jakarta.persistence.*;
+import lombok.*;
+
+
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentProfile {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(unique = true)
-    private String studentId;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
 
-    @Column(unique = true)
-    private String email;
 
-    private String fullName;
-    private Boolean active = true;
+@Column(unique = true)
+private String studentId;
+
+
+@Column(unique = true)
+private String email;
+
+
+private String fullName;
+private Boolean active = true;
 }
