@@ -3,26 +3,32 @@ package com.example.demo.controller;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.service.AuthService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
-@Tag(name = "Authentication")
+@RequestMapping("/auth") // Public endpoints
 public class AuthController {
-    private final AuthService service;
 
-    public AuthController(AuthService service) {
-        this.service = service;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody AuthRequest request) {
-        return service.register(request);
+    public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest request) {
+        // Delegates to AuthService which handles duplicate email checks
+        return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        return service.login(request);
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+        try {
+            return ResponseEntity.ok(authService.login(request));
+        } catch (IllegalArgumentException e) {
+            // Return 401 Unauthorized on failure as required by tests
+            return ResponseEntity.status(401).build();
+        }
     }
 }
