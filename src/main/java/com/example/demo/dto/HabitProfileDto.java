@@ -1,21 +1,18 @@
 package com.example.demo.dto;
 
-public class HabitProfileDto {
-    private Integer cleanlinessLevel;
-    private Integer noisePreference;
-    private String sleepTime;
-    private String wakeTime;
-    private String studyStyle;
+import lombok.Data;
 
-    // Getters and Setters
-    public Integer getCleanlinessLevel() { return cleanlinessLevel; }
-    public void setCleanlinessLevel(Integer cleanlinessLevel) { this.cleanlinessLevel = cleanlinessLevel; }
-    public Integer getNoisePreference() { return noisePreference; }
-    public void setNoisePreference(Integer noisePreference) { this.noisePreference = noisePreference; }
-    public String getSleepTime() { return sleepTime; }
-    public void setSleepTime(String sleepTime) { this.sleepTime = sleepTime; }
-    public String getWakeTime() { return wakeTime; }
-    public void setWakeTime(String wakeTime) { this.wakeTime = wakeTime; }
-    public String getStudyStyle() { return studyStyle; }
-    public void setStudyStyle(String studyStyle) { this.studyStyle = studyStyle; }
+import java.time.LocalTime;
+
+@Data
+public class HabitProfileDto {
+    private boolean smoking;
+    private boolean drinking;
+    private LocalTime sleepTime;
+    private LocalTime wakeTime;
+    private int cleanlinessLevel; // 1-5
+    private int noisePreference;  // 1-5
+    private String studyStyle;
+    private String socialPreference;
+    private int visitorsFrequency; // 1-5
 }
