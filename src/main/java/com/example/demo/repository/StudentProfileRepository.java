@@ -6,5 +6,4 @@ import java.util.Optional;
 
 public interface StudentProfileRepository extends JpaRepository<StudentProfile, Long> {
     Optional<StudentProfile> findByUserAccountId(Long userId);
-    Optional<StudentProfile> findByEmail(String email); // Required for Auth tests
 }
