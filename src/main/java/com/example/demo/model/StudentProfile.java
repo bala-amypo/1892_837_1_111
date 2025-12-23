@@ -2,10 +2,17 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "student_profiles")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentProfile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,15 +36,4 @@ public class StudentProfile {
     private boolean drinking;
     private int noiseTolerance; // 1-5
     private String studyTime;
-
-    // Getters and Setters (omitted for brevity)
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public UserAccount getUserAccount() { return userAccount; }
-    public void setUserAccount(UserAccount userAccount) { this.userAccount = userAccount; }
-
-    // ... other getters/setters
 }
-
-enum RoomType { SINGLE, DOUBLE, TRIPLE }

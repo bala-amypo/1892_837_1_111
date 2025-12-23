@@ -2,10 +2,17 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "habit_profiles")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class HabitProfile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +30,4 @@ public class HabitProfile {
     private String studyStyle;
     private String socialPreference;
     private int visitorsFrequency; // 1-5
-
-    // Getters and Setters (omitted)
 }
