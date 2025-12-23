@@ -1,22 +1,20 @@
+// src/main/java/com/example/demo/dto/StudentProfileDto.java
 package com.example.demo.dto;
 
-import com.example.demo.model.RoomType;
-import lombok.Data;
-
-import java.time.LocalTime;
-
-@Data
+// Mirror fields of StudentProfile (without userAccount)
 public class StudentProfileDto {
     private String name;
     private int age;
     private String course;
-    private int yearOfStudy;
+    private String yearOfStudy;
     private String gender;
     private RoomType roomTypePreference;
-    private LocalTime sleepTime;
-    private LocalTime wakeTime;
+    private String sleepTime;
+    private String wakeTime;
     private boolean smoking;
     private boolean drinking;
     private int noiseTolerance;
-    private LocalTime studyTime;
+    private String studyTime;
+
+    // Getters and Setters
 }

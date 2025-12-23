@@ -1,13 +1,11 @@
+// src/main/java/com/example/demo/model/MatchResult.java
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Data
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"student_a_id", "student_b_id"}))
+@Table(name = "match_results")
 public class MatchResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +24,6 @@ public class MatchResult {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     private String reasonSummary;
+
+    // Getters and Setters (omitted)
 }

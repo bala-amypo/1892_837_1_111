@@ -1,41 +1,43 @@
+// src/main/java/com/example/demo/model/StudentProfile.java
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
-import java.time.LocalTime;
 
 @Entity
-@Data
+@Table(name = "student_profiles")
 public class StudentProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "user_account_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id", unique = true)
     private UserAccount userAccount;
 
     private String name;
     private int age;
     private String course;
-    private int yearOfStudy;
+    private String yearOfStudy;
     private String gender;
 
     @Enumerated(EnumType.STRING)
     private RoomType roomTypePreference;
 
-    private LocalTime sleepTime;
-    private LocalTime wakeTime;
+    private String sleepTime; // e.g., "22:00"
+    private String wakeTime;  // e.g., "07:00"
     private boolean smoking;
     private boolean drinking;
     private int noiseTolerance; // 1-5
-    private LocalTime studyTime;
+    private String studyTime;
 
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
-    private HabitProfile habitProfile;
+    // Getters and Setters (omitted for brevity)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public UserAccount getUserAccount() { return userAccount; }
+    public void setUserAccount(UserAccount userAccount) { this.userAccount = userAccount; }
+
+    // ... other getters/setters
 }
 
-enum RoomType {
-    SINGLE, DOUBLE, TRIPLE
-}
+enum RoomType { SINGLE, DOUBLE, TRIPLE }
