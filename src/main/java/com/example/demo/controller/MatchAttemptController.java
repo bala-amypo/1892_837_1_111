@@ -1,36 +1,51 @@
-// src/main/java/com/example/demo/controller/MatchController.java
 package com.example.demo.controller;
 
-import com.example.demo.model.MatchResult;
-import com.example.demo.service.MatchService;
+import com.example.demo.model.MatchAttemptRecord;
+import com.example.demo.service.MatchAttemptService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/matches")
-public class MatchController {
+@RequestMapping("/match-attempts")
+public class MatchAttemptController {
 
-    private final MatchService matchService;
+    private final MatchAttemptService service;
 
-    public MatchController(MatchService matchService) {
-        this.matchService = matchService;
+    public MatchAttemptController(MatchAttemptService service) {
+        this.service = service;
     }
 
-    @PostMapping("/compute")
-    public ResponseEntity<MatchResult> compute(@RequestParam Long studentAId,
-                                               @RequestParam Long studentBId) {
-        return ResponseEntity.ok(matchService.computeMatch(studentAId, studentBId));
+    // Used in TestNG: ctrl.log(attempt)
+    @PostMapping
+    public ResponseEntity<MatchAttemptRecord> log(
+            @RequestBody MatchAttemptRecord attempt) {
+
+        MatchAttemptRecord saved = service.logMatchAttempt(attempt);
+        return ResponseEntity.ok(saved);
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<MatchAttemptRecord> updateStatus(
+            @PathVariable Long id,
+            @RequestParam String status) {
+
+        MatchAttemptRecord updated = service.updateAttemptStatus(id, status);
+        return ResponseEntity.ok(updated);
     }
 
     @GetMapping("/student/{studentId}")
-    public ResponseEntity<List<MatchResult>> getMatchesForStudent(@PathVariable Long studentId) {
-        return ResponseEntity.ok(matchService.getMatchesFor(studentId));
+    public ResponseEntity<List<MatchAttemptRecord>> getByStudent(
+            @PathVariable Long studentId) {
+
+        return ResponseEntity.ok(
+                service.getAttemptsByStudent(studentId)
+        );
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MatchResult> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(matchService.getById(id));
+    @GetMapping
+    public ResponseEntity<List<MatchAttemptRecord>> getAll() {
+        return ResponseEntity.ok(service.getAllMatchAttempts());
     }
 }
