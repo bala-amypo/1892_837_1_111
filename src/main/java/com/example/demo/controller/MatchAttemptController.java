@@ -17,31 +17,10 @@ public class MatchAttemptController {
         this.service = service;
     }
 
-    // Used in TestNG: ctrl.log(attempt)
     @PostMapping
     public ResponseEntity<MatchAttemptRecord> log(
             @RequestBody MatchAttemptRecord attempt) {
-
-        MatchAttemptRecord saved = service.logMatchAttempt(attempt);
-        return ResponseEntity.ok(saved);
-    }
-
-    @PutMapping("/{id}/status")
-    public ResponseEntity<MatchAttemptRecord> updateStatus(
-            @PathVariable Long id,
-            @RequestParam String status) {
-
-        MatchAttemptRecord updated = service.updateAttemptStatus(id, status);
-        return ResponseEntity.ok(updated);
-    }
-
-    @GetMapping("/student/{studentId}")
-    public ResponseEntity<List<MatchAttemptRecord>> getByStudent(
-            @PathVariable Long studentId) {
-
-        return ResponseEntity.ok(
-                service.getAttemptsByStudent(studentId)
-        );
+        return ResponseEntity.ok(service.logMatchAttempt(attempt));
     }
 
     @GetMapping
