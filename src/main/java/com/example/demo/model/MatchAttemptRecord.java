@@ -20,7 +20,9 @@ public class MatchAttemptRecord {
         MATCHED, NOT_COMPATIBLE, PENDING_REVIEW
     }
 
+    // REQUIRED BY TESTS
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public Long getInitiatorStudentId() { return initiatorStudentId; }
     public void setInitiatorStudentId(Long initiatorStudentId) {

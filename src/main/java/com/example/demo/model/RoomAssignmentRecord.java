@@ -20,7 +20,9 @@ public class RoomAssignmentRecord {
         ACTIVE, COMPLETED, CANCELLED
     }
 
+    // REQUIRED BY TESTS
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getRoomNumber() { return roomNumber; }
     public void setRoomNumber(String roomNumber) { this.roomNumber = roomNumber; }

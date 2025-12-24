@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.HabitProfile;
 import com.example.demo.service.HabitProfileService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,17 +18,17 @@ public class HabitProfileController {
     }
 
     @PostMapping
-    public HabitProfile save(@RequestBody HabitProfile h) {
-        return service.createOrUpdateHabit(h);
+    public ResponseEntity<HabitProfile> save(@RequestBody HabitProfile h) {
+        return ResponseEntity.ok(service.createOrUpdateHabit(h));
     }
 
     @GetMapping("/student/{id}")
-    public HabitProfile getByStudent(@PathVariable Long id) {
-        return service.getHabitByStudent(id);
+    public ResponseEntity<HabitProfile> getByStudent(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getHabitByStudent(id));
     }
 
     @GetMapping
-    public List<HabitProfile> getAll() {
-        return service.getAllHabitProfiles();
+    public ResponseEntity<List<HabitProfile>> getAll() {
+        return ResponseEntity.ok(service.getAllHabitProfiles());
     }
 }

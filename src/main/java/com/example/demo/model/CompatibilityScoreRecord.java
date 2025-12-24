@@ -14,6 +14,8 @@ public class CompatibilityScoreRecord {
     private Long studentBId;
     private Double score;
 
+    private String detailsJson;
+
     @Enumerated(EnumType.STRING)
     private CompatibilityLevel compatibilityLevel;
 
@@ -23,7 +25,9 @@ public class CompatibilityScoreRecord {
         LOW, MEDIUM, HIGH, EXCELLENT
     }
 
+    // REQUIRED BY TESTS
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public Long getStudentAId() { return studentAId; }
     public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
@@ -34,15 +38,14 @@ public class CompatibilityScoreRecord {
     public Double getScore() { return score; }
     public void setScore(Double score) { this.score = score; }
 
-    public LocalDateTime getComputedAt() { return computedAt; }
-    public void setComputedAt(LocalDateTime computedAt) {
-        this.computedAt = computedAt;
-    }
+    public String getDetailsJson() { return detailsJson; }
+    public void setDetailsJson(String detailsJson) { this.detailsJson = detailsJson; }
 
-    public CompatibilityLevel getCompatibilityLevel() {
-        return compatibilityLevel;
-    }
+    public CompatibilityLevel getCompatibilityLevel() { return compatibilityLevel; }
     public void setCompatibilityLevel(CompatibilityLevel compatibilityLevel) {
         this.compatibilityLevel = compatibilityLevel;
     }
+
+    public LocalDateTime getComputedAt() { return computedAt; }
+    public void setComputedAt(LocalDateTime computedAt) { this.computedAt = computedAt; }
 }
