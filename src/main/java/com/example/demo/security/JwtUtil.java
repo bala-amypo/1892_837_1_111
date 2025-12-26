@@ -2,10 +2,12 @@ package com.example.demo.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
 
+@Component   // 🔥 THIS IS THE FIX
 public class JwtUtil {
 
-    private final byte[] key =
+    private static final byte[] KEY =
             "secretkeysecretkeysecretkey12".getBytes();
 
     public String generateToken(
@@ -19,14 +21,14 @@ public class JwtUtil {
                 .claim("role", role)
                 .claim("email", email)
                 .claim("userId", userId)
-                .signWith(Keys.hmacShaKeyFor(key))
+                .signWith(Keys.hmacShaKeyFor(KEY))
                 .compact();
     }
 
     public void validate(String token) {
         Jwts.parserBuilder()
-                .setSigningKey(key)
+                .setSigningKey(KEY)
                 .build()
-                .parseClaimsJws(token); // throws exception if invalid
+                .parseClaimsJws(token);
     }
 }
