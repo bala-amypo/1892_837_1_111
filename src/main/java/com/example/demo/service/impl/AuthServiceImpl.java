@@ -7,7 +7,7 @@ import com.example.demo.service.AuthService;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Service
 public class AuthServiceImpl implements AuthService {
 
     private final JwtUtil jwtUtil;
