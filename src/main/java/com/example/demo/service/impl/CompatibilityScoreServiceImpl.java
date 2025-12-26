@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.model.CompatibilityScoreRecord;
 import com.example.demo.service.CompatibilityScoreService;
 import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

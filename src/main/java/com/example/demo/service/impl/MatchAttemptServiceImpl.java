@@ -6,6 +6,7 @@ import com.example.demo.model.MatchAttemptRecord;
 import com.example.demo.repository.CompatibilityScoreRecordRepository;
 import com.example.demo.repository.MatchAttemptRecordRepository;
 import com.example.demo.service.MatchAttemptService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
