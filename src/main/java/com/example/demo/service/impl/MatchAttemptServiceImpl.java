@@ -8,7 +8,7 @@ import com.example.demo.repository.MatchAttemptRecordRepository;
 import com.example.demo.service.MatchAttemptService;
 
 import java.util.List;
-
+@Service
 public class MatchAttemptServiceImpl implements MatchAttemptService {
 
     private final MatchAttemptRecordRepository matchRepo;

@@ -8,7 +8,7 @@ import com.example.demo.repository.StudentProfileRepository;
 import com.example.demo.service.RoomAssignmentService;
 
 import java.util.List;
-
+@Service
 public class RoomAssignmentServiceImpl implements RoomAssignmentService {
 
     private final RoomAssignmentRecordRepository roomRepo;
