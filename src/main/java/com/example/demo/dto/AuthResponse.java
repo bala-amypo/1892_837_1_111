@@ -2,46 +2,29 @@ package com.example.demo.dto;
 
 public class AuthResponse {
 
+    private int statusCodeValue;
     private String token;
     private String username;
     private String email;
     private String role;
 
-    // 🔥 REQUIRED BY TEST CASES
     public int getStatusCodeValue() {
-        return 200;
+        return statusCodeValue;
     }
 
-    // Getters & Setters
-    public String getToken() {
-        return token;
+    public void setStatusCodeValue(int statusCodeValue) {
+        this.statusCodeValue = statusCodeValue;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+    public String getToken() { return token; }
+    public void setToken(String token) { this.token = token; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }

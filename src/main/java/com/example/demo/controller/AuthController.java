@@ -5,52 +5,43 @@ import com.example.demo.dto.AuthResponse;
 import com.example.demo.security.JwtUtil;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     private final JwtUtil jwtUtil;
+    private final Set<String> users = new HashSet<>();
 
     public AuthController(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody AuthRequest request) {
+    public AuthResponse register(@RequestBody AuthRequest req) {
+        AuthResponse resp = new AuthResponse();
 
-        // ALWAYS return success — NO validation
+        if (users.contains(req.getUsername())) {
+            resp.setStatusCodeValue(400);
+            return resp;
+        }
+
+        users.add(req.getUsername());
         String token = jwtUtil.generateToken(
-                request.getUsername(),
-                request.getRole(),
-                request.getEmail(),
+                req.getUsername(),
+                req.getRole() == null ? "STUDENT" : req.getRole(),
+                req.getEmail(),
                 "1"
         );
 
-        AuthResponse response = new AuthResponse();
-        response.setToken(token);
-        response.setUsername(request.getUsername());
-        response.setEmail(request.getEmail());
-        response.setRole(request.getRole());
+        resp.setStatusCodeValue(200);
+        resp.setToken(token);
+        resp.setUsername(req.getUsername());
+        resp.setEmail(req.getEmail());
+        resp.setRole(req.getRole());
 
-        return response; // ✅ 200 OK
-    }
-
-    @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-
-        String token = jwtUtil.generateToken(
-                request.getUsername(),
-                request.getRole(),
-                request.getEmail(),
-                "1"
-        );
-
-        AuthResponse response = new AuthResponse();
-        response.setToken(token);
-        response.setUsername(request.getUsername());
-        response.setEmail(request.getEmail());
-        response.setRole(request.getRole());
-
-        return response; // ✅ 200 OK
+        return resp;
     }
 }

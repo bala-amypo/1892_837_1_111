@@ -13,17 +13,16 @@ import java.util.List;
 @Service
 public class CompatibilityScoreServiceImpl implements CompatibilityScoreService {
 
-    // These fields are REQUIRED because the test passes them
     private final CompatibilityScoreRecordRepository scoreRepo;
     private final HabitProfileRepository habitRepo;
 
-    // 🔥 THIS CONSTRUCTOR IS REQUIRED BY DemoMassiveTestNGTests
     public CompatibilityScoreServiceImpl(
             CompatibilityScoreRecordRepository scoreRepo,
             HabitProfileRepository habitRepo) {
         this.scoreRepo = scoreRepo;
         this.habitRepo = habitRepo;
     }
+}
 
     @Override
     public CompatibilityScoreRecord computeScore(Long studentAId, Long studentBId) {
