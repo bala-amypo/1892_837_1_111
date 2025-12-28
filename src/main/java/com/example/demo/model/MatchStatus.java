@@ -1,5 +1,4 @@
-package com.example.demo.model;
-
+package com.example.demo.model.enum;
 public enum MatchStatus {
     MATCHED,
     NOT_COMPATIBLE,
