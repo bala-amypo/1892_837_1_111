@@ -27,4 +27,31 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
     public MatchAttemptRecord logMatchAttempt(MatchAttemptRecord attempt) {
         attempt.setAttemptedAt(LocalDateTime.now());
         attempt.setStatus(MatchStatus.PENDING_REVIEW);
-        return matchRepo.sav
+        return matchRepo.save(attempt);
+    }
+
+    @Override
+    public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
+        return matchRepo.findByInitiatorStudentIdOrCandidateStudentId(studentId, studentId);
+    }
+
+    @Override
+    public MatchAttemptRecord getAttemptById(Long id) {
+        return matchRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<MatchAttemptRecord> getAllMatchAttempts() {
+        return matchRepo.findAll();
+    }
+
+    @Override
+    public MatchAttemptRecord updateAttemptStatus(Long id, String status) {
+        MatchAttemptRecord record = matchRepo.findById(id).orElse(null);
+        if (record != null) {
+            record.setStatus(MatchStatus.valueOf(status));
+            return matchRepo.save(record);
+        }
+        return null;
+    }
+}
