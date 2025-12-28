@@ -1,8 +1,10 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "room_assignments")
 public class RoomAssignmentRecord {
 
     @Id
@@ -10,17 +12,21 @@ public class RoomAssignmentRecord {
     private Long id;
 
     private String roomNumber;
+
     private Long studentAId;
     private Long studentBId;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    private LocalDateTime assignedAt;
 
-    public enum Status {
-        ACTIVE, COMPLETED, CANCELLED
+    @Enumerated(EnumType.STRING)
+    private AssignmentStatus status;
+
+    public RoomAssignmentRecord() {
+        this.status = AssignmentStatus.ACTIVE;
+        this.assignedAt = LocalDateTime.now();
     }
 
-    // REQUIRED BY TESTS
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -33,6 +39,9 @@ public class RoomAssignmentRecord {
     public Long getStudentBId() { return studentBId; }
     public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
 
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
+    public LocalDateTime getAssignedAt() { return assignedAt; }
+    public void setAssignedAt(LocalDateTime assignedAt) { this.assignedAt = assignedAt; }
+
+    public AssignmentStatus getStatus() { return status; }
+    public void setStatus(AssignmentStatus status) { this.status = status; }
 }

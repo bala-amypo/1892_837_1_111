@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "compatibility_scores")
 public class CompatibilityScoreRecord {
 
     @Id
@@ -12,20 +13,22 @@ public class CompatibilityScoreRecord {
 
     private Long studentAId;
     private Long studentBId;
-    private Double score;
 
-    private String detailsJson;
+    private Double score;
 
     @Enumerated(EnumType.STRING)
     private CompatibilityLevel compatibilityLevel;
 
     private LocalDateTime computedAt;
 
-    public enum CompatibilityLevel {
-        LOW, MEDIUM, HIGH, EXCELLENT
+    @Column(columnDefinition = "TEXT")
+    private String detailsJson;
+
+    public CompatibilityScoreRecord() {
+        this.computedAt = LocalDateTime.now();
     }
 
-    // REQUIRED BY TESTS
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -38,14 +41,12 @@ public class CompatibilityScoreRecord {
     public Double getScore() { return score; }
     public void setScore(Double score) { this.score = score; }
 
-    public String getDetailsJson() { return detailsJson; }
-    public void setDetailsJson(String detailsJson) { this.detailsJson = detailsJson; }
-
     public CompatibilityLevel getCompatibilityLevel() { return compatibilityLevel; }
-    public void setCompatibilityLevel(CompatibilityLevel compatibilityLevel) {
-        this.compatibilityLevel = compatibilityLevel;
-    }
+    public void setCompatibilityLevel(CompatibilityLevel compatibilityLevel) { this.compatibilityLevel = compatibilityLevel; }
 
     public LocalDateTime getComputedAt() { return computedAt; }
     public void setComputedAt(LocalDateTime computedAt) { this.computedAt = computedAt; }
+
+    public String getDetailsJson() { return detailsJson; }
+    public void setDetailsJson(String detailsJson) { this.detailsJson = detailsJson; }
 }
