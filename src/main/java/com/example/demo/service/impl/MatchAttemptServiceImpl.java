@@ -1,14 +1,15 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.CompatibilityScoreRecord;
 import com.example.demo.model.MatchAttemptRecord;
-import com.example.demo.repository.CompatibilityScoreRecordRepository;
+import com.example.demo.model.MatchStatus;
 import com.example.demo.repository.MatchAttemptRecordRepository;
+import com.example.demo.repository.CompatibilityScoreRecordRepository;
 import com.example.demo.service.MatchAttemptService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
 @Service
 public class MatchAttemptServiceImpl implements MatchAttemptService {
 
@@ -24,40 +25,6 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
 
     @Override
     public MatchAttemptRecord logMatchAttempt(MatchAttemptRecord attempt) {
-
-        if (attempt.getResultScoreId() != null) {
-            CompatibilityScoreRecord score = scoreRepo.findById(attempt.getResultScoreId())
-                    .orElseThrow(() -> new ResourceNotFoundException("not found"));
-
-            if (score.getScore() >= 50) {
-                attempt.setStatus(MatchAttemptRecord.Status.MATCHED);
-            } else {
-                attempt.setStatus(MatchAttemptRecord.Status.NOT_COMPATIBLE);
-            }
-        } else {
-            attempt.setStatus(MatchAttemptRecord.Status.PENDING_REVIEW);
-        }
-
-        return matchRepo.save(attempt);
-    }
-
-    @Override
-    public MatchAttemptRecord updateAttemptStatus(Long attemptId, String status) {
-
-        MatchAttemptRecord attempt = matchRepo.findById(attemptId)
-                .orElseThrow(() -> new ResourceNotFoundException("not found"));
-
-        attempt.setStatus(MatchAttemptRecord.Status.valueOf(status));
-        return matchRepo.save(attempt);
-    }
-
-    @Override
-    public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
-        return matchRepo.findByInitiatorStudentIdOrCandidateStudentId(studentId, studentId);
-    }
-
-    @Override
-    public List<MatchAttemptRecord> getAllMatchAttempts() {
-        return matchRepo.findAll();
-    }
-}
+        attempt.setAttemptedAt(LocalDateTime.now());
+        attempt.setStatus(MatchStatus.PENDING_REVIEW);
+        return matchRepo.sav
