@@ -42,7 +42,7 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- Spring Web (Controllers + Swagger) -->
+        <!-- Spring Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -54,13 +54,13 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Spring Security (minimal usage) -->
+        <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- H2 Database (safe for tests) -->
+        <!-- H2 Database -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -74,7 +74,7 @@
             <version>2.5.0</version>
         </dependency>
 
-        <!-- JWT (jjwt – compatible & stable) -->
+        <!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -93,7 +93,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Validation (for @Valid, @NotNull, etc.) -->
+        <!-- Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -107,7 +107,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Spring Test -->
+        <!-- Spring Boot Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -146,22 +146,23 @@
             </plugin>
 
             <!-- Maven Surefire (TestNG) -->
-           <plugin>
-                 <groupId>org.apache.maven.plugins</groupId>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                <useModulePath>false</useModulePath>
-                <testNGArtifactName>org.testng:testng</testNGArtifactName>
-                <properties>
-                         <property>
-                        <name>listener</name>
-                        <value>com.example.demo.TestResultListener</value>
-                    </property>
-               </properties>
-            </configuration>
-        </plugin>
+                    <useModulePath>false</useModulePath>
+                    <testNGArtifactName>org.testng:testng</testNGArtifactName>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>com.example.demo.TestResultListener</value>
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
 
+        </plugins>
     </build>
 
 </project>
