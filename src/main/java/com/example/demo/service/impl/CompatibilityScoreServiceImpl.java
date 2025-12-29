@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.CompatibilityLevel;
+
 import com.example.demo.model.CompatibilityScoreRecord;
 import com.example.demo.repository.CompatibilityScoreRecordRepository;
 import com.example.demo.repository.HabitProfileRepository;

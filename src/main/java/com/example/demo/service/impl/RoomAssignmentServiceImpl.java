@@ -1,7 +1,6 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.RoomAssignmentRecord;
-import com.example.demo.model.AssignmentStatus;
 import com.example.demo.repository.RoomAssignmentRecordRepository;
 import com.example.demo.repository.StudentProfileRepository;
 import com.example.demo.service.RoomAssignmentService;

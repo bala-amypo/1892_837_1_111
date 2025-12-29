@@ -1,7 +1,6 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.MatchAttemptRecord;
-import com.example.demo.model.MatchStatus;
 import com.example.demo.repository.MatchAttemptRecordRepository;
 import com.example.demo.repository.CompatibilityScoreRecordRepository;
 import com.example.demo.service.MatchAttemptService;
