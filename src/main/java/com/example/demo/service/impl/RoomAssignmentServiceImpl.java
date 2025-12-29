@@ -25,7 +25,7 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
     @Override
     public RoomAssignmentRecord assignRoom(RoomAssignmentRecord assignment) {
         assignment.setAssignedAt(LocalDateTime.now());
-        assignment.setStatus(AssignmentStatus.ACTIVE);
+        assignment.setStatus(RoomAssignmentRecord.Status.ASSIGNED);
         return roomRepo.save(assignment);
     }
 
@@ -36,7 +36,7 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
 
     @Override
     public List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId) {
-        return roomRepo.findByStudentAIdOrStudentBId(studentId, studentId);
+        return roomRepo.findByStudentId(studentId);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
     public RoomAssignmentRecord updateStatus(Long id, String status) {
         RoomAssignmentRecord record = roomRepo.findById(id).orElse(null);
         if (record != null) {
-            record.setStatus(AssignmentStatus.valueOf(status));
+            record.setStatus(RoomAssignmentRecord.Status.valueOf(status));
             return roomRepo.save(record);
         }
         return null;

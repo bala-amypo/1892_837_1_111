@@ -25,13 +25,13 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
     @Override
     public MatchAttemptRecord logMatchAttempt(MatchAttemptRecord attempt) {
         attempt.setAttemptedAt(LocalDateTime.now());
-        attempt.setStatus(MatchStatus.PENDING_REVIEW);
+        attempt.setStatus(MatchAttemptRecord.Status.PENDING);
         return matchRepo.save(attempt);
     }
 
     @Override
     public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
-        return matchRepo.findByInitiatorStudentIdOrCandidateStudentId(studentId, studentId);
+        return matchRepo.findByStudentAIdOrStudentBId(studentId, studentId);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
     public MatchAttemptRecord updateAttemptStatus(Long id, String status) {
         MatchAttemptRecord record = matchRepo.findById(id).orElse(null);
         if (record != null) {
-            record.setStatus(MatchStatus.valueOf(status));
+            record.setStatus(MatchAttemptRecord.Status.valueOf(status));
             return matchRepo.save(record);
         }
         return null;

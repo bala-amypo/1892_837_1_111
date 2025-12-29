@@ -1,6 +1,5 @@
 package com.example.demo.service.impl;
 
-
 import com.example.demo.model.CompatibilityScoreRecord;
 import com.example.demo.repository.CompatibilityScoreRecordRepository;
 import com.example.demo.repository.HabitProfileRepository;
@@ -16,7 +15,6 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
     private final CompatibilityScoreRecordRepository scoreRepo;
     private final HabitProfileRepository habitRepo;
 
-    // ✅ Constructor MUST match test
     public CompatibilityScoreServiceImpl(
             CompatibilityScoreRecordRepository scoreRepo,
             HabitProfileRepository habitRepo) {
@@ -30,7 +28,9 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
         record.setStudentAId(studentAId);
         record.setStudentBId(studentBId);
         record.setScore(80.0);
-        record.setCompatibilityLevel(CompatibilityLevel.HIGH);
+        record.setCompatibilityLevel(
+                CompatibilityScoreRecord.CompatibilityLevel.HIGH
+        );
         record.setDetailsJson("{}");
         return record;
     }
