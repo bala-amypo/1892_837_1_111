@@ -18,7 +18,7 @@ public class MatchAttemptRecord {
 
     private LocalDateTime attemptedAt;
 
-    /* ===== TEST EXPECTS THIS ENUM NAME ===== */
+    // ✅ INNER ENUM
     public enum Status {
         SUCCESS,
         FAILED,
@@ -26,4 +26,18 @@ public class MatchAttemptRecord {
     }
 
     // Getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getStudentAId() { return studentAId; }
+    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
+
+    public Long getStudentBId() { return studentBId; }
+    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
+
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
+
+    public LocalDateTime getAttemptedAt() { return attemptedAt; }
+    public void setAttemptedAt(LocalDateTime attemptedAt) { this.attemptedAt = attemptedAt; }
 }
