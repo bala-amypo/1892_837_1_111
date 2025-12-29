@@ -12,7 +12,7 @@ import java.util.List;
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI customOpenAPI() {
+    public OpenAPI api() {   // ✅ METHOD NAME MUST BE api()
 
         Server httpsServer = new Server();
         httpsServer.setUrl("https://9219.408procr.amypo.ai");
